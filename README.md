@@ -1,8 +1,8 @@
-# BitHub 🔢
+# BitViz 🔢
 
 **Interactive Bit Manipulation Visualizer with Python Playground**
 
-Master bit operations through visual learning and hands-on coding. BitHub makes understanding bitwise operations intuitive and fun!
+Master bit operations through visual learning and hands-on coding. BitViz makes understanding bitwise operations intuitive and fun!
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vamsi-op/BitViz)
 
@@ -31,15 +31,15 @@ Master bit operations through visual learning and hands-on coding. BitHub makes 
 ## 🚀 Quick Start
 
 ### Try Online
-Visit: [BitHub on Vercel](https://your-deployment-url.vercel.app)
+Visit: [BitViz on Vercel](https://your-deployment-url.vercel.app)
 
 ### Run Locally
 ```bash
 # Clone the repository
-git clone https://github.com/vamsi-op/BitHub.git
+git clone https://github.com/vamsi-op/BitViz.git
 
 # Navigate to directory
-cd BitHub
+cd BitViz
 
 # Open in browser (no build required!)
 # Option 1: Double-click index.html
@@ -149,7 +149,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Vamsi**
 - GitHub: [@vamsi-op](https://github.com/vamsi-op)
-- Project Link: [https://github.com/vamsi-op/BitHub](https://github.com/vamsi-op/BitHub)
+- Project Link: [https://github.com/vamsi-op/BitViz](https://github.com/vamsi-op/BitViz)
 
 ## 🌟 Show Your Support
 
@@ -169,7 +169,7 @@ Have questions or suggestions? Open an issue on GitHub or reach out through GitH
 
 **Made with 💚 for developers mastering DSA**
 
-*BitHub - Where bits come to life!*
+*BitViz - Where bits come to life!*
 
 ## 📖 How to Use
 
