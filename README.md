@@ -176,5 +176,7 @@ Have questions or suggestions? Open an issue on GitHub or reach out through GitH
 
 
 **Happy Learning! 🚀**
+---
 *BitViz - Where bits come to life!*
+---
 **Made with 💚 for developers mastering DSA**
