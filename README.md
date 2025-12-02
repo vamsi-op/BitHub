@@ -4,7 +4,7 @@
 
 Master bit operations through visual learning and hands-on coding. BitViz makes understanding bitwise operations intuitive and fun!
 
-[![Try it out]](https://bitviz.vercel.app/)
+[Try it out](https://bitviz.vercel.app/)
 
 ## ✨ Features
 
@@ -30,7 +30,7 @@ Master bit operations through visual learning and hands-on coding. BitViz makes 
 ## 🚀 Quick Start
 
 ### Try Online
-Visit: [![Try it out]](https://bitviz.vercel.app/)
+Visit: [Try it out](https://bitviz.vercel.app/)
 
 ### Run Locally
 ```bash
