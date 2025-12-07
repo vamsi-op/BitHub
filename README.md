@@ -1,31 +1,36 @@
 # BitViz 🔢
 
-**Interactive Bit Manipulation Visualizer with Python Playground**
+**Interactive Bit Manipulation Visualizer with Dynamic Variables**
 
-Master bit operations through visual learning and hands-on coding. BitViz makes understanding bitwise operations intuitive and fun!
+Master bit operations through visual learning and dynamic interaction. BitViz makes understanding bitwise operations intuitive and fun with unlimited variables!
 
 [Try it out](https://bitviz.vercel.app/)
 
 ## ✨ Features
 
 ### 🎯 Interactive Visualizer
-- **Direct Bit Editing**: Edit bits directly - just type 0 or 1
+- **Direct Bit Editing**: Click any bit to toggle between 0 and 1 instantly
 - **Dynamic Bit Sizing**: Automatically adjusts between 8/16/32-bit display based on number size
+- **Unlimited Variables**: Add/remove variables dynamically (A, B, C, D, ...)
+- **Variable Selection**: Choose any two variables for operations
 - **6 Operation Modes**: AND, OR, XOR, NOT, LEFT SHIFT, RIGHT SHIFT
 - **Live Updates**: See results instantly as you modify values
+- **Negate Button**: Quick bitwise NOT operation for each variable
+- **Result Storage**: Store operation results in new variables
 - **Binary & Decimal**: Dual representation for better understanding
 
-### 🐍 Python Playground
-- **Code Editor**: Write Python bit manipulation code in the browser
-- **Real-time Execution**: Run Python-like code without backend
-- **Step-by-Step Visualization**: See each bit operation's transformation visually
-- **Variable Tracking**: Automatic extraction and binary display of numeric variables
-- **6 Built-in Examples**: Learn from ready-to-run code snippets
+### 💡 Bit Manipulation Tricks
+- **8 Common Patterns**: 
+
+### 📚 Practice Problems
+- **4 LeetCode-style Problems**: Learn through real algorithm challenges
+- **Beginner-Friendly**: Progressive difficulty with clear explanations
 
 ### 🎨 Design
-- **Fully Responsive**: Optimized for desktop, tablet, and mobile devices
-- **Smooth Animations**: Engaging visual feedback and transitions
-- **Accessibility**: Keyboard navigation, clear typography, and high contrast
+- **Modern Dark Theme**
+- **Fully Responsive**
+- **Smooth Animations**
+- **Accessibility**
 
 ## 🚀 Quick Start
 
@@ -51,40 +56,47 @@ python -m http.server 8000
 
 ### Interactive Visualizer
 
-1. **Enter Numbers**: Type in decimal values or click on individual bits to toggle them
-2. **Select Operation**: Choose from AND, OR, XOR, NOT, LEFT SHIFT, or RIGHT SHIFT
-3. **See Results**: Watch bits transform in real-time with color highlighting
-4. **Explore Tricks**: Try 8 common bit manipulation patterns (power of 2, count bits, swap, etc.)
-5. **Practice**: Solve 4 LeetCode-style problems with detailed solutions
+1. **Manage Variables**:
+   - Start with variables A and B
+   - Click **+ Add Variable** to create C, D, E, etc.
+   - Click **− Remove Last** to delete the most recent variable
+   - Each variable has a negate button (~) for quick NOT operation
 
-### Python Playground
+2. **Edit Values**:
+   - Type decimal values directly in the input fields
+   - Or click individual bits to toggle them between 0 and 1
+   - Use arrow keys to navigate between bits
 
-1. **Write Code**: Use the built-in editor to write Python bit manipulation code
-```python
-a = 12  # 1100
-b = 10  # 1010
-result = a & b  # 1000 = 8
-print(f"Result: {result}")
-```
+3. **Select Operation**:
+   - Choose **Variable 1** and **Variable 2** from dropdowns
+   - Pick an operation mode: AND, OR, XOR, NOT, LEFT SHIFT, or RIGHT SHIFT
+   - For shift operations, specify the number of positions
 
-2. **Run Code**: Click "▶ Run Code" or press `Ctrl+Enter`
+4. **View Results**:
+   - Watch bits transform in real-time with color highlighting
+   - Green highlights show 1 bits in the result
+   - Click **~ Negate Result** to flip all result bits
+   - Click **⬆️ Move to New Variable** to store result in a new variable
 
-3. **View Visualization**: See each operation displayed step-by-step:
-   - Operand A in binary (grouped by 4 bits)
-   - Operand B in binary
-   - Result highlighted in green
-   - Decimal values shown alongside
+5. **Explore Tricks**:
+   - Scroll to **Common Bit Manipulation Tricks**
+   - Click **Try it** on any trick to see it in action
+   - Tricks use Variable A (and B for swap operation)
+   - Modify input positions for bit toggle/set/clear/check operations
 
-4. **Track Variables**: All numeric variables automatically appear in the variables section
-
-5. **Load Examples**: Click any example card to load pre-written code
+6. **Practice Problems**:
+   - Read the problem description
+   - Try to solve it mentally
+   - Click **Show Solution** to reveal the approach
+   - Click **Hide Solution** to test yourself again
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: Vanilla JavaScript (ES6+), HTML5, CSS3
 - **Styling**: Custom CSS with CSS Variables for theming
+- **Icons**: Unicode emojis for lightweight UI
 - **Deployment**: Vercel (optimized for static sites)
-- **Zero Dependencies**: Pure vanilla implementation, no npm packages
+- **Zero Dependencies**: Pure vanilla implementation, no frameworks or libraries
 
 ## 📚 Features in Detail
 
@@ -96,23 +108,12 @@ print(f"Result: {result}")
 - **LEFT SHIFT (<<)**: Shifts bits left, multiplies by 2^n
 - **RIGHT SHIFT (>>)**: Shifts bits right, divides by 2^n
 
-### 8 Bit Manipulation Tricks
-1. Check if Power of 2: `n & (n-1) == 0`
-2. Count Set Bits: Brian Kernighan's Algorithm
-3. Toggle nth Bit: `n ^ (1 << pos)`
-4. Set nth Bit: `n | (1 << pos)`
-5. Clear nth Bit: `n & ~(1 << pos)`
-6. Check nth Bit: `(n & (1 << pos)) != 0`
-7. Swap Numbers: XOR swap without temp variable
-8. Find Missing Number: XOR cancellation
-
-### Python Code Examples
-- Basic Operations (AND, OR, XOR)
-- Bit Shifting (left/right)
-- Power of 2 Check
-- Count Set Bits
-- Swap Without Temp
-- Toggle Specific Bit
+### Variable Management
+- **Dynamic Creation**: Add as many variables as needed (A, B, C, D, ...)
+- **Flexible Selection**: Choose any pair of variables for operations
+- **Quick Negation**: One-click bitwise NOT for each variable
+- **Result Storage**: Save operation results as new variables
+- **Auto Bit-Sizing**: All variables adjust to the largest value's bit requirements
 
 ## 🤝 Contributing
 
@@ -148,35 +149,39 @@ Give a ⭐️ if this project helped you master bit manipulation!
 
 Have questions or suggestions? Open an issue on GitHub or reach out through GitHub discussions.
 
----
-## 🎨 Understanding the Colors
-
-- **White text on dark**: Regular bits (0s)
-- **Green highlight**: Result bits that are 1
-- **Green accent**: Primary color for success/set bits
-- **Red**: Errors or bits that are 0
-
----
 
 ## 🐛 Troubleshooting
 
 **Binary display not updating?**
 - Hard refresh the page (Ctrl+F5 or Cmd+Shift+R)
-- Check browser console for errors (F12)
+- Check if JavaScript is enabled in your browser
+
+**Bits not toggling when clicked?**
+- Ensure the input field is not disabled
+- Try clicking directly on the input box
 
 **Operations showing wrong results?**
 - Make sure you're using valid 32-bit integers
 - Range: -2,147,483,648 to 2,147,483,647
+- Check which variables are selected in the dropdowns
 
-**Animations too fast/slow?**
-- Animations are optimized for smooth learning
-- They trigger when values change
+**Can't add more variables?**
+- There's no hard limit, but performance may vary with many variables
+- Consider refreshing if the page becomes slow
+
+**Animations too fast?**
+- Animations are optimized for smooth learning (600ms)
+- They trigger automatically when values change
 
 ---
 
 
 **Happy Learning! 🚀**
+
 ---
+
 *BitViz - Where bits come to life!*
----
+
 **Made with 💚 for developers mastering DSA**
+
+---

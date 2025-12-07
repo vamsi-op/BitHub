@@ -41,6 +41,36 @@ header {
     border: none;
 }
 
+/* Site brand (logo + wordmark) */
+.site-header .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+#site-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    display: inline-block;
+}
+
+.brand-text {
+    font-size: 2.2rem;
+    margin: 0;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Accessibility helper */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+@media (max-width: 600px) {
+    #site-logo { width: 48px; height: 48px; }
+    .brand-text { font-size: 1.4rem; }
+}
+
 h1 {
     font-size: 3em;
     margin-bottom: 12px;
@@ -718,7 +748,7 @@ footer a:hover {
 }
 
 /* Responsive */
-/* Tablet styles */
+/* Large Tablet styles */
 @media (max-width: 1024px) {
     .container {
         max-width: 100%;
@@ -740,9 +770,19 @@ footer a:hover {
     }
     
     .bit-input {
-        width: 1.6em;
-        height: 1.6em;
+        width: 1.8em;
+        height: 1.8em;
         font-size: 1em;
+    }
+    
+    .section-header {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        gap: 10px !important;
+    }
+    
+    .section-header > div {
+        gap: 8px !important;
     }
     
     .tricks-grid,
@@ -761,6 +801,10 @@ footer a:hover {
         font-size: 2em;
     }
     
+    .brand-text {
+        font-size: 1.8rem;
+    }
+    
     .subtitle {
         font-size: 1em;
     }
@@ -769,9 +813,57 @@ footer a:hover {
         padding: 20px;
     }
     
+    .section-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    
+    .section-header h2 {
+        margin-bottom: 10px;
+    }
+    
+    .section-header > div {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .section-header .mode-btn {
+        flex: 1;
+        min-width: 140px;
+    }
+    
+    .variable-selector {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 12px !important;
+    }
+    
+    .variable-selector > div {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .variable-selector select {
+        flex: 1;
+        min-width: 80px;
+    }
+    
     .single-operation {
         width: 100%;
+        padding: 0;
+    }
+    
+    .operation-card {
         padding: 20px;
+    }
+    
+    .result-actions {
+        flex-direction: column !important;
+    }
+    
+    .result-actions .mode-btn {
+        width: 100% !important;
     }
     
     .bits {
@@ -794,6 +886,8 @@ footer a:hover {
     .binary-display {
         padding: 12px;
         gap: 3px;
+        width: 100%;
+        overflow-x: auto;
     }
     
     .mode-buttons {
@@ -802,6 +896,7 @@ footer a:hover {
     
     .mode-btn {
         width: 100%;
+        padding: 12px 16px;
     }
     
     .input-group {
@@ -812,15 +907,19 @@ footer a:hover {
     
     .input-group label {
         font-size: 0.95em;
+        min-width: auto;
     }
     
     .input-group input[type="number"] {
         width: 100%;
+        max-width: 100%;
         font-size: 1em;
     }
     
-    .binary-display {
-        width: 100%;
+    .negate-btn,
+    .remove-var-btn {
+        padding: 10px 16px;
+        font-size: 1em;
     }
     
     .tricks-grid,
@@ -833,49 +932,40 @@ footer a:hover {
     .problem-card {
         padding: 16px;
     }
+    
+    .shift-control {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .shift-control input {
+        width: 100%;
+    }
 }
 
 /* Small mobile styles */
 @media (max-width: 480px) {
     body {
-        padding: 10px;
+        padding: 8px;
     }
     
     h1 {
         font-size: 1.5em;
     }
     
+    .brand-text {
+        font-size: 1.5rem;
+    }
+    
+    #site-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
     .subtitle {
-        font-size: 0.95em;
-    }
-    
-    .bits {
-        font-size: 0.75em;
-        padding: 8px;
-        letter-spacing: 0.5px;
-        overflow-x: auto;
-    }
-    
-    .bits .bit {
-        padding: 2px 4px;
-        margin: 0 1px;
-    }
-    
-    .bit-input {
-        width: 1.2em;
-        height: 1.2em;
-        font-size: 0.75em;
-        padding: 2px;
-    }
-    
-    .binary-display {
-        padding: 8px;
-        gap: 2px;
-    }
-    
-    .mode-btn {
-        padding: 8px 12px;
-        font-size: 0.85em;
+        font-size: 0.9em;
+        line-height: 1.5;
     }
     
     header {
@@ -885,18 +975,171 @@ footer a:hover {
     
     .input-section {
         padding: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.3em;
+    }
+    
+    .section-header .mode-btn {
+        min-width: 120px;
+        padding: 10px 14px;
+        font-size: 0.85em;
+    }
+    
+    .variable-selector {
+        padding: 10px !important;
+    }
+    
+    .variable-selector label {
+        font-size: 0.9em;
+    }
+    
+    .variable-selector select {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+    
+    .operations-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 16px;
     }
     
     .operation-card {
         padding: 16px;
     }
     
-    .operand .label, .result .label {
-        min-width: 50px;
+    .bits {
+        font-size: 0.8em;
+        padding: 8px;
+        letter-spacing: 0.5px;
+        overflow-x: auto;
+        min-height: 50px;
+    }
+    
+    .bits .bit {
+        padding: 3px 5px;
+        margin: 0 1px;
         font-size: 0.9em;
     }
     
-    .trick-card h4, .problem-card h3 {
+    .bit-input {
+        width: 1.3em;
+        height: 1.3em;
+        font-size: 0.8em;
+        padding: 2px;
+        border-width: 1px;
+    }
+    
+    .binary-display {
+        padding: 8px;
+        gap: 2px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .binary-display.bits-16,
+    .binary-display.bits-32 {
+        gap: 6px;
+    }
+    
+    .mode-buttons {
+        gap: 8px;
+    }
+    
+    .mode-btn {
+        padding: 10px 12px;
+        font-size: 0.85em;
+        min-height: 44px;
+    }
+    
+    .input-group {
+        gap: 10px;
+    }
+    
+    .input-group label {
+        font-size: 0.9em;
+    }
+    
+    .input-group input[type="number"] {
+        padding: 10px 14px;
         font-size: 1em;
+        min-height: 44px;
+    }
+    
+    .negate-btn,
+    .remove-var-btn {
+        padding: 10px 14px;
+        font-size: 1em;
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .operand .label, .result .label {
+        min-width: 45px;
+        font-size: 0.85em;
+    }
+    
+    .decimal-result {
+        font-size: 1.1em;
+    }
+    
+    .explanation {
+        font-size: 0.85em;
+    }
+    
+    .shift-control label {
+        font-size: 0.9em;
+    }
+    
+    .shift-control input {
+        padding: 10px;
+        font-size: 1em;
+        min-height: 44px;
+    }
+    
+    .tricks-section h2,
+    .practice-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 16px;
+    }
+    
+    .trick-card,
+    .problem-card {
+        padding: 14px;
+    }
+    
+    .trick-card h4,
+    .problem-card h4 {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+    
+    .trick-card code,
+    .problem-card code {
+        font-size: 0.85em;
+        padding: 8px 10px;
+    }
+    
+    .trick-btn,
+    .solve-btn {
+        padding: 10px;
+        font-size: 0.9em;
+        min-height: 44px;
+    }
+    
+    .trick-input label {
+        font-size: 0.85em;
+    }
+    
+    .trick-input input {
+        padding: 8px;
+        min-height: 40px;
+    }
+    
+    footer {
+        font-size: 0.85em;
+        padding: 20px;
     }
 }

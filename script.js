@@ -328,6 +328,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Helper Functions
+function shouldAddSpace(index, bitSize) {
+    if (bitSize === 8) return index === 4;
+    return index > 0 && index % 4 === 0;
+}
+
 function getBitSize(num1, num2) {
     // Determine required bit size based on larger number
     const maxNum = Math.max(Math.abs(num1), Math.abs(num2));
@@ -345,182 +350,67 @@ function toBinary(num, bitSize = 8) {
 
 function toBinaryDisplay(binary) {
     const bitSize = binary.length;
+    const createRow = (bits, offset = 0) => {
+        return Array.from(bits).map((bit, index) => {
+            const globalIndex = index + offset;
+            const spacer = shouldAddSpace(index, bitSize) ? '<span class="bit-spacer"> </span>' : '';
+            return `${spacer}<input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${globalIndex}">`;
+        }).join('');
+    };
     
-    // Create individual input fields for each bit
     if (bitSize === 8) {
-        // 8 bits: single row, larger size
-        return Array.from(binary).map((bit, index) => {
-            if (index === 4) {
-                return `<span class="bit-spacer"> </span><input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${index}">`;
-            }
-            return `<input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${index}">`;
-        }).join('');
+        return createRow(binary);
     } else if (bitSize === 16) {
-        // 16 bits: 2 rows of 8 bits each
-        const row1 = Array.from(binary.slice(0, 8)).map((bit, index) => {
-            if (index === 4) {
-                return `<span class="bit-spacer"> </span><input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${index}">`;
-            }
-            return `<input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${index}">`;
-        }).join('');
-        
-        const row2 = Array.from(binary.slice(8, 16)).map((bit, index) => {
-            const globalIndex = index + 8;
-            if (index === 4) {
-                return `<span class="bit-spacer"> </span><input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${globalIndex}">`;
-            }
-            return `<input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${globalIndex}">`;
-        }).join('');
-        
-        return `<div class="bit-row">${row1}</div><div class="bit-row">${row2}</div>`;
+        return `<div class="bit-row">${createRow(binary.slice(0, 8))}</div><div class="bit-row">${createRow(binary.slice(8), 8)}</div>`;
     } else {
-        // 32 bits: 2 rows of 16 bits each
-        const row1 = Array.from(binary.slice(0, 16)).map((bit, index) => {
-            if (index > 0 && index % 4 === 0) {
-                return `<span class="bit-spacer"> </span><input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${index}">`;
-            }
-            return `<input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${index}">`;
-        }).join('');
-        
-        const row2 = Array.from(binary.slice(16, 32)).map((bit, index) => {
-            const globalIndex = index + 16;
-            if (index > 0 && index % 4 === 0) {
-                return `<span class="bit-spacer"> </span><input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${globalIndex}">`;
-            }
-            return `<input type="text" class="bit-input" maxlength="1" value="${bit}" data-index="${globalIndex}">`;
-        }).join('');
-        
-        return `<div class="bit-row">${row1}</div><div class="bit-row">${row2}</div>`;
+        return `<div class="bit-row">${createRow(binary.slice(0, 16))}</div><div class="bit-row">${createRow(binary.slice(16), 16)}</div>`;
     }
 }
 
 function toBinaryDisplayReadOnly(binary) {
     const bitSize = binary.length;
+    const createRow = (bits) => {
+        return Array.from(bits).map((bit, index) => {
+            const space = shouldAddSpace(index, bitSize) ? ' ' : '';
+            return `${space}<span class="bit">${bit}</span>`;
+        }).join('');
+    };
     
-    // Create read-only span elements for operation display
-    if (bitSize === 8) {
-        // 8 bits: single row
-        return Array.from(binary).map((bit, index) => {
-            if (index === 4) {
-                return ` <span class="bit">${bit}</span>`;
-            }
-            return `<span class="bit">${bit}</span>`;
-        }).join('');
-    } else if (bitSize === 16) {
-        // 16 bits: single row with spacing every 4 bits
-        return Array.from(binary).map((bit, index) => {
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="bit">${bit}</span>`;
-            }
-            return `<span class="bit">${bit}</span>`;
-        }).join('');
+    if (bitSize === 8 || bitSize === 16) {
+        return createRow(binary);
     } else {
-        // 32 bits: 2 rows of 16 bits each
-        const row1 = Array.from(binary.slice(0, 16)).map((bit, index) => {
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="bit">${bit}</span>`;
-            }
-            return `<span class="bit">${bit}</span>`;
+        return `<div class="bit-row">${createRow(binary.slice(0, 16))}</div><div class="bit-row">${createRow(binary.slice(16))}</div>`;
+    }
+}
+
+function highlightBits(binary, classifierFn) {
+    const bitSize = binary.length;
+    const createRow = (bits, offset = 0) => {
+        return Array.from(bits).map((bit, index) => {
+            const globalIndex = index + offset;
+            const cssClass = classifierFn(bit, globalIndex, binary);
+            const space = shouldAddSpace(index, bitSize) ? ' ' : '';
+            return `${space}<span class="${cssClass}">${bit}</span>`;
         }).join('');
-        
-        const row2 = Array.from(binary.slice(16, 32)).map((bit, index) => {
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="bit">${bit}</span>`;
-            }
-            return `<span class="bit">${bit}</span>`;
-        }).join('');
-        
-        return `<div class="bit-row">${row1}</div><div class="bit-row">${row2}</div>`;
+    };
+    
+    if (bitSize === 8 || bitSize === 16) {
+        return createRow(binary);
+    } else {
+        return `<div class="bit-row">${createRow(binary.slice(0, 16))}</div><div class="bit-row">${createRow(binary.slice(16), 16)}</div>`;
     }
 }
 
 function highlightDifferences(binary1, binary2) {
-    const bitSize = binary2.length;
-    
-    // Highlight bits that are different
-    if (bitSize === 8) {
-        return Array.from(binary2).map((bit, index) => {
-            const isDifferent = binary1[index] !== binary2[index];
-            const cssClass = isDifferent ? 'bit highlight' : 'bit';
-            if (index === 4) {
-                return ` <span class="${cssClass}">${bit}</span>`;
-            }
-            return `<span class="${cssClass}">${bit}</span>`;
-        }).join('');
-    } else if (bitSize === 16) {
-        // 16 bits: single row with spacing every 4 bits
-        return Array.from(binary2).map((bit, index) => {
-            const isDifferent = binary1[index] !== binary2[index];
-            const cssClass = isDifferent ? 'bit highlight' : 'bit';
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="${cssClass}">${bit}</span>`;
-            }
-            return `<span class="${cssClass}">${bit}</span>`;
-        }).join('');
-    } else {
-        const row1 = Array.from(binary2.slice(0, 16)).map((bit, index) => {
-            const isDifferent = binary1[index] !== binary2[index];
-            const cssClass = isDifferent ? 'bit highlight' : 'bit';
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="${cssClass}">${bit}</span>`;
-            }
-            return `<span class="${cssClass}">${bit}</span>`;
-        }).join('');
-        
-        const row2 = Array.from(binary2.slice(16, 32)).map((bit, index) => {
-            const globalIndex = index + 16;
-            const isDifferent = binary1[globalIndex] !== binary2[globalIndex];
-            const cssClass = isDifferent ? 'bit highlight' : 'bit';
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="${cssClass}">${bit}</span>`;
-            }
-            return `<span class="${cssClass}">${bit}</span>`;
-        }).join('');
-        
-        return `<div class="bit-row">${row1}</div><div class="bit-row">${row2}</div>`;
-    }
+    return highlightBits(binary2, (bit, index) => {
+        return binary1[index] !== binary2[index] ? 'bit highlight' : 'bit';
+    });
 }
 
 function highlightResultBits(binary) {
-    const bitSize = binary.length;
-    
-    // Highlight 1 bits in result
-    if (bitSize === 8) {
-        return Array.from(binary).map((bit, index) => {
-            const cssClass = bit === '1' ? 'bit result-1' : 'bit';
-            if (index === 4) {
-                return ` <span class="${cssClass}">${bit}</span>`;
-            }
-            return `<span class="${cssClass}">${bit}</span>`;
-        }).join('');
-    } else if (bitSize === 16) {
-        // 16 bits: single row with spacing every 4 bits
-        return Array.from(binary).map((bit, index) => {
-            const cssClass = bit === '1' ? 'bit result-1' : 'bit';
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="${cssClass}">${bit}</span>`;
-            }
-            return `<span class="${cssClass}">${bit}</span>`;
-        }).join('');
-    } else {
-        const row1 = Array.from(binary.slice(0, 16)).map((bit, index) => {
-            const cssClass = bit === '1' ? 'bit result-1' : 'bit';
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="${cssClass}">${bit}</span>`;
-            }
-            return `<span class="${cssClass}">${bit}</span>`;
-        }).join('');
-        
-        const row2 = Array.from(binary.slice(16, 32)).map((bit, index) => {
-            const cssClass = bit === '1' ? 'bit result-1' : 'bit';
-            if (index > 0 && index % 4 === 0) {
-                return ` <span class="${cssClass}">${bit}</span>`;
-            }
-            return `<span class="${cssClass}">${bit}</span>`;
-        }).join('');
-        
-        return `<div class="bit-row">${row1}</div><div class="bit-row">${row2}</div>`;
-    }
+    return highlightBits(binary, (bit) => {
+        return bit === '1' ? 'bit result-1' : 'bit';
+    });
 }
 
 function animateElement(element) {
