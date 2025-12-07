@@ -139,7 +139,8 @@ h1 {
     background: var(--bg-dark);
     color: var(--text-primary);
     font-size: 1.1em;
-    width: 200px;
+    width: 150px;
+    max-width: 150px;
     transition: all 0.2s ease;
 }
 
@@ -150,6 +151,50 @@ h1 {
     background: #1a1a1a;
 }
 
+.negate-btn {
+    padding: 10px 16px;
+    background: var(--bg-light);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.negate-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: scale(1.05);
+}
+
+.remove-var-btn {
+    padding: 8px 14px;
+    background: var(--bg-light);
+    color: var(--danger);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.remove-var-btn:hover {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: white;
+}
+
+.section-header h2 {
+    color: var(--text-primary);
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
 .binary-display {
     font-family: 'Courier New', 'Monaco', monospace;
     background: var(--bg-dark);
@@ -158,9 +203,60 @@ h1 {
     border: 1px solid var(--border);
     flex: 1;
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 4px;
-    flex-wrap: wrap;
+    min-height: 80px;
+}
+
+.binary-display.bits-8 {
+    flex-direction: row;
+    gap: 4px;
+}
+
+.binary-display.bits-8 .bit-input {
+    width: 2.2em;
+    height: 2.2em;
+    font-size: 1.4em;
+}
+
+.binary-display.bits-16 {
+    gap: 8px;
+}
+
+.binary-display.bits-16 .bit-row {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+}
+
+.binary-display.bits-16 .bit-input {
+    width: 2.2em;
+    height: 2.2em;
+    font-size: 1.4em;
+}
+
+.binary-display.bits-32 {
+    flex-direction: column;
+    gap: 8px;
+}
+
+.binary-display.bits-32 .bit-row {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+}
+
+.binary-display.bits-32 .bit-input {
+    width: 2.2em;
+    height: 2.2em;
+    font-size: 1.4em;
+}
+
+.bit-row {
+    display: flex;
+    gap: 4px;
 }
 
 .bit-input {
@@ -248,6 +344,23 @@ h1 {
     border-radius: 8px;
     flex: 1;
     line-height: 1.8;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    min-height: 60px;
+}
+
+.bits:has(.bit-row) {
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bits .bit-row {
+    display: flex;
+    gap: 0;
+    justify-content: center;
 }
 
 .bits .bit {
@@ -724,39 +837,66 @@ footer a:hover {
 
 /* Small mobile styles */
 @media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
     h1 {
         font-size: 1.5em;
     }
     
+    .subtitle {
+        font-size: 0.95em;
+    }
+    
     .bits {
-        font-size: 0.85em;
-        padding: 10px;
+        font-size: 0.75em;
+        padding: 8px;
         letter-spacing: 0.5px;
         overflow-x: auto;
     }
     
     .bits .bit {
-        padding: 3px 5px;
+        padding: 2px 4px;
+        margin: 0 1px;
     }
     
     .bit-input {
-        width: 1.4em;
-        height: 1.4em;
-        font-size: 0.85em;
+        width: 1.2em;
+        height: 1.2em;
+        font-size: 0.75em;
+        padding: 2px;
     }
     
     .binary-display {
-        padding: 10px;
+        padding: 8px;
         gap: 2px;
     }
     
     .mode-btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
+        padding: 8px 12px;
+        font-size: 0.85em;
     }
     
     header {
-        padding: 20px;
-        margin-bottom: 24px;
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .input-section {
+        padding: 16px;
+    }
+    
+    .operation-card {
+        padding: 16px;
+    }
+    
+    .operand .label, .result .label {
+        min-width: 50px;
+        font-size: 0.9em;
+    }
+    
+    .trick-card h4, .problem-card h3 {
+        font-size: 1em;
     }
 }

@@ -11,25 +11,52 @@
     <div class="container">
         <header>
             <h1>BitViz</h1>
-            <p class="subtitle">Master bit operations interactively with visual feedback & Python playground</p>
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="playground.html" style="display: inline-block; padding: 12px 24px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.2s ease;">🐍 Try Python Playground →</a>
-            </div>
+            <p class="subtitle">Master bit operations interactively with visual feedback & dynamic variables</p>
         </header>
 
         <main>
             <!-- Input Section -->
             <section class="input-section">
-                <div class="input-group">
-                    <label for="number1">A :</label>
-                    <input type="number" id="number1" value="0" min="-2147483648" max="2147483647">
-                    <div class="binary-display" id="binary1" data-number="1"></div>
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="margin: 0;">Variables</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="mode-btn" onclick="addVariable()" style="padding: 10px 20px;">+ Add Variable</button>
+                        <button class="mode-btn" onclick="removeLastVariable()" style="padding: 10px 20px; background: var(--bg-light); color: var(--danger);">− Remove Last</button>
+                    </div>
                 </div>
                 
-                <div class="input-group">
-                    <label for="number2">B :</label>
-                    <input type="number" id="number2" value="0" min="-2147483648" max="2147483647">
-                    <div class="binary-display" id="binary2" data-number="2"></div>
+                <div id="variables-container">
+                    <div class="input-group" data-var="A">
+                        <label for="number1">A :</label>
+                        <input type="number" id="number1" value="0" min="-2147483648" max="2147483647">
+                        <button class="negate-btn" onclick="negateVariable('number1')" title="Negate (NOT)">~</button>
+                        <div class="binary-display" id="binary1" data-number="1"></div>
+                    </div>
+                    
+                    <div class="input-group" data-var="B">
+                        <label for="number2">B :</label>
+                        <input type="number" id="number2" value="0" min="-2147483648" max="2147483647">
+                        <button class="negate-btn" onclick="negateVariable('number2')" title="Negate (NOT)">~</button>
+                        <div class="binary-display" id="binary2" data-number="2"></div>
+                    </div>
+                </div>
+
+                <!-- Variable Selection -->
+                <div class="variable-selector" style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px; padding: 15px; background: var(--bg-card); border-radius: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="var-select-1" style="font-weight: 600;">Variable 1:</label>
+                        <select id="var-select-1" style="padding: 8px 12px; background: var(--bg-light); color: var(--text-primary); border: 1px solid var(--border); border-radius: 5px; font-size: 1rem; cursor: pointer;">
+                            <option value="1">A</option>
+                            <option value="2">B</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;" id="var-select-2-container">
+                        <label for="var-select-2" style="font-weight: 600;">Variable 2:</label>
+                        <select id="var-select-2" style="padding: 8px 12px; background: var(--bg-light); color: var(--text-primary); border: 1px solid var(--border); border-radius: 5px; font-size: 1rem; cursor: pointer;">
+                            <option value="1">A</option>
+                            <option value="2" selected>B</option>
+                        </select>
+                    </div>
                 </div>
 
                 <!-- Operation Mode Selector -->
@@ -49,7 +76,7 @@
             <!-- Single Operation Display -->
             <section class="operations-section">
                 <h2><span id="current-operation-title">AND Operation</span></h2>
-                <div class="single-operation">>
+                <div class="single-operation">
                     <!-- Dynamic Operation Card -->
                     <div class="operation-card" id="operation-display">
                         <div class="operation-visual">
@@ -76,6 +103,10 @@
                         <div class="operation-info">
                             <p class="decimal-result">Decimal: <strong id="operation-decimal">0</strong></p>
                             <p class="explanation" id="operation-explanation">Returns 1 only if BOTH bits are 1</p>
+                            <div class="result-actions" style="display: flex; gap: 10px; margin-top: 15px;">
+                                <button class="mode-btn" onclick="negateResult()" title="Negate result">~ Negate Result</button>
+                                <button class="mode-btn" onclick="storeResult()" style="background: var(--primary);" title="Store result in new variable">⬆️ Move to New Variable</button>
+                            </div>
                         </div>
                     </div>
 
@@ -163,7 +194,7 @@
 
             <!-- Practice Problems -->
             <section class="practice-section">
-                <h2>🎓 Practice Problems</h2>
+                <h2>Beginner Practice Problems</h2>
                 <div class="problems-grid">
                     <div class="problem-card">
                         <h4>Problem 1: Single Number</h4>
